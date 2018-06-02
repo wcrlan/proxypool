@@ -3,6 +3,7 @@ import re
 import chardet
 import requests
 from pyquery import PyQuery as pq
+from requests.errors im
 
 
 class Getter(object):
@@ -21,7 +22,7 @@ class Getter(object):
                         resp.content).get('encoding')
                     yield resp.text
                 else:
-                    raise ConnectionError
+                    raise Exception('ConnectionError')
             except Exception:
                 print('download %s failed' % url)
             if rule.get('delay'):
