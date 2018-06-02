@@ -1,18 +1,20 @@
 import pymongo
+from pymongo.errors import OperationFailure
 
+from setting import DB_HOST, DB_PORT, DATABASE, COLLECTION
 
 class Mongodb(object):
-    def __init__(self):
-        self.client = pymongo.MongoClient()
-        self.db = self.client['proxypool']
-        self.collection = self.db['proxy']
+    def __init__(self, host='localhost', port='27107', database='proxypool', collection='proxy'):
+        self.client = pymongo.MongoClient(host=host, port=port)
+        self.db = self.client[database]
+        self.collection = self.db[collection]
         self.collection.create_index('address', unique=True)
 
     def insert(self, proxy):
         try:
             self.collection.insert_one(proxy)
-            print('save %s to db' % proxy)
-        except pymongo.errors.OperationFailure:
+            print('save %s to db' % proxy['address'])
+        except OperationFailure:
             pass
 
     def delete(self, condition):
@@ -21,11 +23,18 @@ class Mongodb(object):
     def update(self, condition, value):
         self.collection.update(condition, {'$set': value})
 
-    def get(self, count=1):
+    def get(self, condiftion=None, count=1):
         items = self.collection.find({}, {'address': 1, '_id': 0}, limit=int(
             count)).sort('delay', pymongo.ASCENDING)
         result = [item['address'] for item in items]
         return result
+
+
+    def get_valid(self):
+        items = self.collection.find({'delay': {'$gte': 0}}, {'address': 1, '_id': 0}).sort('delay', pymongo.ASCENDING)
+        result = [item['address'] for item in items]
+        return result
+
 
     def all(self):
         items = self.collection.find({}, {'address': 1, '_id':0})
@@ -36,11 +45,11 @@ class Mongodb(object):
         return self.collection.count({} if not condition else condition)
 
 
-db = Mongodb()
+db = Mongodb(host=DB_HOST, port=DB_PORT, database=DATABASE, collection=COLLECTION)
 
 
 if __name__ == '__main__':
-    cli = db
+    cli = Mongodb()
     for i in range(2):
         cli.insert({"address": '101.132.186.{}:{}'.format(i+10, i+4341), 'delay': -1})
 

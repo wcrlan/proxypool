@@ -1,1 +1,1 @@
-from .mongo_db import db
+from .db import Mongodb, db

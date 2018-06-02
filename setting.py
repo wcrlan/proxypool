@@ -1,10 +1,31 @@
-PORT = 5000
+# process, thread config
+API_RUN = True
+VALID_RUN = True
+CRAWL_RUN = True
 
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
-}
+VALID_THREAD_NUM = 10
+CRAWL_THREAD_NUM = 4
 
-TEST_URL = 'https://www.baidu.com/'
+# API config
+API_HOST = 'localhost'
+API_PORT = 5000
+
+# db config
+DB_HOST = 'localhost'
+DB_PORT = 27017
+DATABASE = 'proxypool'
+COLLECTION = 'proxy'
+
+
+# valid_proxy config
+
+
+VALID_URL = 'https://www.baidu.com/'
+
+VALID_CYCLE = 5 * 60
+
+# Crawl Proxy config
+CRAWL_CYCLE = 30 * 60
 
 PAGE_PER_SITE = 5
 

@@ -1,2 +1,2 @@
-from .crawler import crawl_2_db
-from .tester import valid
+from .crawl import crawl_many
+from .valid import valid_many
