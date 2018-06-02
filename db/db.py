@@ -5,7 +5,7 @@ from core.setting import DB_HOST, DB_PORT, DATABASE, COLLECTION
 
 
 class Mongodb(object):
-    def __init__(self, host='localhost', port='27107', database='proxypool', collection='proxy'):
+    def __init__(self, host, port, database, collection):
         self.client = pymongo.MongoClient(host=host, port=port)
         self.db = self.client[database]
         self.collection = self.db[collection]
@@ -22,7 +22,7 @@ class Mongodb(object):
         self.collection.delete_one(condition)
 
     def update(self, condition, value):
-        self.collection.update(condition, {'$set': value})
+        self.collection.update_one(condition, {'$set': value})
 
     def get(self, condiftion=None, count=1):
         items = self.collection.find({}, {'address': 1, '_id': 0}, limit=int(
