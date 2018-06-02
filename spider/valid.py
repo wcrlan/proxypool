@@ -28,6 +28,6 @@ def valid(proxy):
         pass
 
 
-def valid_many(proxy_list):
-    pool = ThreadPool(VALID_THREAD_NUM)
+def valid_many(proxy_list, valid_thread_num=VALID_THREAD_NUM):
+    pool = ThreadPool(valid_thread_num)
     pool.map(valid, proxy_list)
