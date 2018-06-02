@@ -3,7 +3,7 @@ from multiprocessing import Process
 from multiprocessing.pool import ThreadPool
 
 from db import db
-from setting import (API_HOST, API_PORT, API_RUN, CRAWL_CYCLE, CRAWL_RUN,
+from core.setting import (API_HOST, API_PORT, API_RUN, CRAWL_CYCLE, CRAWL_RUN,
                      CRAWL_THREAD_NUM, RULES, VALID_CYCLE, VALID_RUN)
 from spider import crawl_many, valid_many
 

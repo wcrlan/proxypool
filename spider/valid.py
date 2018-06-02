@@ -5,7 +5,7 @@ import requests
 import urllib3
 
 from db import db
-from setting import VALID_THREAD_NUM, VALID_URL
+from core.setting import VALID_THREAD_NUM, VALID_URL
 
 
 def valid(proxy):

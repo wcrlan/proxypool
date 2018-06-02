@@ -1,7 +1,8 @@
 import pymongo
 from pymongo.errors import OperationFailure
 
-from setting import DB_HOST, DB_PORT, DATABASE, COLLECTION
+from core.setting import DB_HOST, DB_PORT, DATABASE, COLLECTION
+
 
 class Mongodb(object):
     def __init__(self, host='localhost', port='27107', database='proxypool', collection='proxy'):
@@ -25,19 +26,18 @@ class Mongodb(object):
 
     def get(self, condiftion=None, count=1):
         items = self.collection.find({}, {'address': 1, '_id': 0}, limit=int(
-            count)).sort('delay', pymongo.ASCENDING)
+            count)).sort('delay')
         result = [item['address'] for item in items]
         return result
-
 
     def get_valid(self):
-        items = self.collection.find({'delay': {'$gte': 0}}, {'address': 1, '_id': 0}).sort('delay', pymongo.ASCENDING)
+        items = self.collection.find({'delay': {'$gte': 0}}, {
+                                     'address': 1, '_id': 0}).sort('delay')
         result = [item['address'] for item in items]
         return result
 
-
     def all(self):
-        items = self.collection.find({}, {'address': 1, '_id':0})
+        items = self.collection.find({}, {'address': 1, '_id': 0})
         for item in items:
             yield item['address']
 
@@ -51,7 +51,7 @@ db = Mongodb(host=DB_HOST, port=DB_PORT, database=DATABASE, collection=COLLECTIO
 if __name__ == '__main__':
     cli = Mongodb()
     for i in range(2):
-        cli.insert({"address": '101.132.186.{}:{}'.format(i+10, i+4341), 'delay': -1})
+        cli.insert({"address": '101.132.186.{}:{}'.format(i + 10, i + 4341), 'delay': -1})
 
     print(cli.get(5))
     print(cli.count())
