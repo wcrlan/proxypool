@@ -1,5 +1,7 @@
-from flask import Flask, g, jsonify, request
 import random
+
+from flask import Flask, g, jsonify, request
+
 from db import db
 
 __all__ = ['app']
@@ -18,7 +20,6 @@ def index():
     return "<h1>Proxy Pool Stytem</h1><a href='/p'>get one proxy</a><p>or many by setting param-count<p>"
 
 
-
 @app.route('/p')
 def get():
     args = request.args
@@ -33,7 +34,6 @@ def get():
         return '<h1>代理池数量不足</h1>'
     else:
         return jsonify(random.sample(valid_list, count))
-
 
 
 if __name__ == '__main__':

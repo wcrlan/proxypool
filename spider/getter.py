@@ -17,7 +17,8 @@ class Getter(object):
                 print('download %s' % url)
                 resp = requests.get(url, headers=self.headers, timeout=10)
                 if resp.status_code == 200:
-                    resp.encoding = chardet.detect(resp.content).get('encoding')
+                    resp.encoding = chardet.detect(
+                        resp.content).get('encoding')
                     yield resp.text
                 else:
                     raise ConnectionError

@@ -3,9 +3,11 @@ from multiprocessing import Process
 from multiprocessing.pool import ThreadPool
 
 from db import db
-from setting import RULES, API_PORT, API_HOST, VALID_CYCLE, CRAWL_CYCLE, VALID_RUN, CRAWL_RUN, API_RUN, CRAWL_THREAD_NUM
+from setting import (API_HOST, API_PORT, API_RUN, CRAWL_CYCLE, CRAWL_RUN,
+                     CRAWL_THREAD_NUM, RULES, VALID_CYCLE, VALID_RUN)
 from spider import crawl_many, valid_many
-from api import app
+
+from .api import app
 
 
 class Scheduler(object):
@@ -26,7 +28,7 @@ class Scheduler(object):
         app.run(host=host, port=port)
 
     def run(self):
-        print('代理池开始运行')
+        print('Proxy Pool Start')
         if VALID_RUN:
             valid_process = Process(target=self.valid_server)
             valid_process.start()
@@ -36,6 +38,6 @@ class Scheduler(object):
             crawl_process.start()
 
         if API_RUN:
-            api_process = Process(target=self.api_server, args=(API_HOST, API_PORT))
+            api_process = Process(target=self.api_server,
+                                  args=(API_HOST, API_PORT))
             api_process.start()
-

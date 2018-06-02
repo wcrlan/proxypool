@@ -1,4 +1,4 @@
-from schedular import Scheduler
+from core import Scheduler
 
 
 def main():
