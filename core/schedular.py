@@ -19,7 +19,11 @@ class Scheduler(object):
             time.sleep(cycle)
 
     def valid_server(self, cycle=VALID_CYCLE):
+        is_first = True
         while True:
+            if is_first:
+                time.sleep(2 * 60)
+                is_first = False
             proxy_list = db.all()
             valid_many(proxy_list)
             time.sleep(cycle)
