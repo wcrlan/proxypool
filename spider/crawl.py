@@ -1,8 +1,6 @@
 
 from multiprocessing.pool import ThreadPool
-
 from .getter import getter
-
 from db import db
 
 def crawl(rule):
