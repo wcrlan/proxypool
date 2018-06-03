@@ -12,7 +12,7 @@ def valid(proxy):
     print('test proxy %s' % proxy)
     proxies = {'http': 'http://%s' % proxy, 'https': 'https://%s' % proxy}
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko)    Chrome/66.0.3359.181 Safari/537.36'}
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
     try:
         start = time.time()
         urllib3.disable_warnings()
