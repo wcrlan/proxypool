@@ -22,10 +22,11 @@ class Mongodb(object):
         self.collection.delete_one(condition)
 
     def update(self, condition, value):
-        self.collection.update_one(condition, {'$set': value})
+        self.collection.update_one(condition, {'$set': value}, True)
 
-    def get(self, condiftion=None, count=1):
-        items = self.collection.find({}, {'address': 1, '_id': 0}, limit=int(
+    def get(self, condition=None, count=1):
+        condition = {} if not condition else condition
+        items = self.collection.find(condition, {'address': 1, '_id': 0}, limit=int(
             count)).sort('delay')
         result = [item['address'] for item in items]
         return result
@@ -35,6 +36,10 @@ class Mongodb(object):
                                      'address': 1, '_id': 0}).sort('delay')
         result = [item['address'] for item in items]
         return result
+    
+    def get_high_quality_proxy(self, maximum=5):
+        items = self.collection.find({'delay': {'$gte':0, '$lte':int(maximum)}}, {'address':1, '_id':0})
+        return [item['address'] for item in items]
 
     def all(self):
         items = self.collection.find({}, {'address': 1, '_id': 0})
