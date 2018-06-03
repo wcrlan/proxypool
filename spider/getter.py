@@ -3,7 +3,7 @@ import re
 import chardet
 import requests
 from pyquery import PyQuery as pq
-from requests.errors im
+# from requests.errors im
 
 
 class Getter(object):
