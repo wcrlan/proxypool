@@ -22,7 +22,7 @@ class Scheduler(object):
         is_first = True
         while True:
             if is_first:
-                time.sleep(2 * 60)
+                time.sleep(1 * 60)
                 is_first = False
             proxy_list = db.all()
             valid_many(proxy_list)
